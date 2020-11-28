@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="co.simonkenny.luasforecaster.ui.main.MainViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.MainFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_trams"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/iv_footer_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_weight="1"
+            android:background="?colorSurface"
+            tools:listitem="@layout/view_tram"/>
+
+        <TextView
+            android:id="@+id/tv_empty_data_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/rv_trams"
+            app:layout_constraintBottom_toBottomOf="@id/rv_trams"
+            app:layout_constraintTop_toBottomOf="@id/tv_empty_data_message"
+            app:layout_constraintStart_toStartOf="@id/rv_trams"
+            app:layout_constraintEnd_toEndOf="@id/rv_trams"
+            style="@style/TextAppearance.MaterialComponents.Headline4"
+            android:text="@string/no_data_message"
+            android:visibility="@{viewModel.tramsDataList.empty ? View.VISIBLE : View.INVISIBLE}"/>
+
+        <ProgressBar
+            android:id="@+id/pb_trams"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_empty_data_message"
+            app:layout_constraintStart_toStartOf="@id/rv_trams"
+            app:layout_constraintEnd_toEndOf="@id/rv_trams"
+            android:layout_marginTop="@dimen/margin_small"
+            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.INVISIBLE}"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_footer_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/footer_height"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="?colorPrimaryVariant"/>
+
+        <TextView
+            android:id="@+id/tv_footer_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/iv_footer_bg"
+            app:layout_constraintBottom_toTopOf="@id/tv_footer_sub"
+            app:layout_constraintStart_toStartOf="@id/iv_footer_bg"
+            android:layout_marginStart="@dimen/margin_medium"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@color/white"
+            android:text="@{viewModel.footerMainText}"
+            tools:text="@string/tools_placeholder" />
+
+        <TextView
+            android:id="@+id/tv_footer_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_footer_main"
+            app:layout_constraintEnd_toEndOf="@id/tv_footer_main"
+            app:layout_constraintBottom_toBottomOf="@id/iv_footer_bg"
+            android:layout_marginStart="@dimen/margin_medium"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/white"
+            android:text="@{viewModel.footerSubText}"
+            tools:text="@string/tools_placeholder"/>
+
+        <Button
+            android:id="@+id/btn_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/iv_footer_bg"
+            app:layout_constraintBottom_toBottomOf="@id/iv_footer_bg"
+            app:layout_constraintEnd_toEndOf="@id/iv_footer_bg"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:text="@string/refresh"
+            android:backgroundTint="?colorSecondary"
+            android:textColor="@color/black"
+            android:onClick="@{() -> viewModel.fetchStopInfo()}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Luas Forecaster</string>
+
+    <!-- Main screen -->
+    <string name="no_data_message">Nothing to show</string>
+    <string name="refresh">Refresh</string>
+
+    <!-- Trans list -->
+    <string name="destination">Destination</string>
+    <string name="due_in">due in</string>
+
+    <string name="unavailable">Unavailable</string>
+
+    <string name="tools_destination">Place Name</string>
+    <string name="tools_due_mins">10 mins</string>
+
+    <plurals name="minutes_short">
+        <item quantity="zero">mins</item>
+        <item quantity="one">min</item>
+        <item quantity="other">mins</item>
+    </plurals>
+
+    <string name="tools_placeholder">Placeholder</string>
+</resources>
